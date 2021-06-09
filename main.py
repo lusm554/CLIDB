@@ -34,6 +34,7 @@ def add_file():
 
 def get_file():
   file_name = input('File name: ')
+  if file_name == '': return cprint('Value field cannot be empty.\n', 'red', attrs=['underline'])
   if not os.path.exists(os.path.join('var', file_name)):
     return cprint('File not found.\n', 'red', attrs=['underline'])
   print()
@@ -52,6 +53,7 @@ def info_files():
 
 def delete_files():
   file_name = input('File name: ')
+  if file_name == '': return cprint('Value field cannot be empty.\n', 'red', attrs=['underline'])
   if not os.path.exists(os.path.join('var', file_name)):
     return cprint('File not found.\n', 'red', attrs=['underline'])
   delete(file_name)
@@ -59,6 +61,7 @@ def delete_files():
 
 def change_file():
   file_name = input('File name: ')
+  if file_name == '': return cprint('Value field cannot be empty.\n', 'red', attrs=['underline'])
   current = {}
   if not os.path.exists(os.path.join('var', file_name)):
     return cprint('File not found.\n', 'red', attrs=['underline'])
