@@ -1,1 +1,1 @@
-CLI application for simple database management.
+A simple database that is managed through the CLI. Data is written to files in json format. The database supports CRUD operations.
