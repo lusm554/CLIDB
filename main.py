@@ -73,6 +73,7 @@ def change_file():
   key = input('Which key you want change? ')
   if not key in data:
     return cprint('Key does not exist.', 'red')
+  print()
   current[key] = input('Value for {0}: '.format(key))
   put(file_name, current)
   cprint('File successul changed.', 'green')
