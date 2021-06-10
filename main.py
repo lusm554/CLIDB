@@ -45,6 +45,7 @@ def get_file():
 
 def info_files():
   files = info()
+  if len(files) == 0: return cprint('Files not found.\n', 'red')
   for file in files.keys():
     print('{0}'.format(file))
     for info_key in files[file].keys():
@@ -97,7 +98,11 @@ commands = {
     'info': 'Change element in db',
     'action': change_file
   },
-  '6': {
+  '6':  {
+    'info': 'Clear terminal',
+    'action': lambda: os.system('clear')
+  },
+  '7': {
     'info': 'Exit',
     'action': lambda code=0: cprint('Bye, have a nice day!', 'green') or exit(code)
   } 
