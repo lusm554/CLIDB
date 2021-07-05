@@ -1,43 +1,45 @@
 from pyfiglet import Figlet
 from termcolor import cprint
 import os
-from dao.files import *
+#from dao.files import add, delete, put, get, info
+from dao.files import FileDAO
 
+FILES_DIR = 'var'
 logo = Figlet(font='standard').renderText('CLI Database')
 #print(logo)
 
 class File:
-    def __init__(self, file_name=False):
-        self.file_name = file_name
+    def __init__(self, name, fdir=FILES_DIR):
+        try:
+            if not os.path.exists(fdir):
+                os.makedirs(fdir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+        self.name = name
+        self.fdir = fdir
+        self.dir = os.path.join(fdir, name)
 
+    
     def __str__(self):
-        return 'hello'
+        return str(FileDAO(self.dir, self.fdir))
+       
 
-    def add(self):
-        data = {
-            'name': None,
-            'age': None,
-            'class': None
-        }
-        for key in data.keys():
-            input_data = input('{}: '.format(key))
-            if input_data == '':
-                cprint('Value field cannot be empty.\n', 'red', attrs=['underline'])
-                return
-            data[key] = input_data
-        add(self.file_name, data)
-        cprint('\nFile {0} writen\n'.format(self.file_name), 'green', attrs=['underline'])
+    def add(self, data):
+        FileDAO(self.dir, self.fdir).add(data)
+        return 'File added.'
+    
 
     def get(self):
-        pass
-
-    def getAll(self):
-        pass
+        data = FileDAO(self.dir, self.fdir).get()
+        return data
+    
+    
+    def put(self, data):
+        FileDAO(self.dir, self.fdir).put(data)
+        return 'File updated.'
 
     def delete(self):
-        pass
-
-a = File(input('file? ')).add()
-
-print(a)
+        FileDAO(self.dir, self.fdir).delete()
+        return 'File deleted.'
 
